@@ -1,9 +1,7 @@
 package org.example.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -17,17 +15,35 @@ import lombok.*;
  * @since 2024-08-14
  */
 @Data   //这个注解会为类中的字段，自动生成get/set、tostring方法
-@TableName("user")
-@Schema(name = "User", description = "")
+@TableName("login_info")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private int id;
 
-    @TableField("username")
-    private String username;
+    private Rank rank;
 
-    @TableField("password")
+    public enum Rank{
+
+        administrator("A","administrator"),
+        operator("O","operator"),
+        UNKNOWN("NULL","无");
+
+        private String code;
+        @EnumValue
+        private String desc;
+        Rank(String code, String desc){
+            this.code = code;
+            this.desc = desc;
+        }
+        public String getDesc(){
+            return desc;
+        }
+    }
+
     private String password;
+    @Override
+    public String toString(){
+        return "id:"+id+",rank:"+rank+",password:"+password;
+    }
 }

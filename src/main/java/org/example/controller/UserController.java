@@ -1,9 +1,16 @@
 package org.example.controller;
 
+import org.example.entity.User;
+import org.example.mapper.IUserDao;
 import org.example.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,17 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024-08-14
  */
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
+    //@Autowired
+    //private IUserService us;
     @Autowired
-    private IUserService us;
-    @RequestMapping("/hello")
-    public String method1(){
-        return "hello world";
+    private IUserDao ud;
+    @PostMapping("/user/save")
+    public void save(User user){
+        int i=ud.insert(user);
+        System.out.println(user);
+        System.out.println("已插入"+i+"条数据");
     }
-    @RequestMapping("/hello2")
-    public String method2(){
-        return "hello world222";
+    @GetMapping("/user/findall")
+    public List<User> findAll(){
+        List<User>list=ud.findalluser();
+        System.out.println(list);
+        return list;
     }
+
 }

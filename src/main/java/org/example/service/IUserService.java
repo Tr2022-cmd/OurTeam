@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author MF
  * @since 2024-08-14
  */
+@Service
 public interface IUserService extends IService<User> {
 
 }
