@@ -1,14 +1,13 @@
 package org.example.entity;
+
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 @TableName("patient_info")
 @Schema(description = "患者信息实体")
 public class PatientInfo {
@@ -21,14 +20,14 @@ public class PatientInfo {
     public enum PatientType { 自费, 农村医保, 城镇医保 }
 
     // ==================== 字段声明 ====================
-// 基础信息
+    // 基础信息
     @Schema(description = "姓名", example = "张三")
     private String name;
 
     @TableField("gender")
     @Schema(description = "性别", allowableValues = {"男", "女"})
     private Gender gender;
-    @TableId("healthcard_id")
+
     @Schema(description = "就诊卡号", example = "C123456789")
     private int healthcard_id;
 
@@ -41,8 +40,7 @@ public class PatientInfo {
     @Schema(description = "证件号码", example = "110101199001011234")
     private String identification_id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai", shape = JsonFormat.Shape.STRING)
-    @TableField("birthdate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Schema(description = "出生日期", example = "1990-01-01")
     private Date birthdate;
 
@@ -126,12 +124,7 @@ public class PatientInfo {
     public void setGender(String gender) { this.gender = Gender.valueOf(gender); }
 
     public int getHealthcard_id() { return healthcard_id; }
-    public void setHealthcard_id(Integer healthcard_id) {
-        if (healthcard_id == null) {
-            throw new IllegalArgumentException("healthcard_id 不能为空");
-        }
-        this.healthcard_id = healthcard_id;
-    }
+    public void setHealthcard_id(int healthcard_id) { this.healthcard_id = healthcard_id; }
 
     public float getHealthcard_balance() { return healthcard_balance; }
     public void setHealthcard_balance(float healthcard_balance) { this.healthcard_balance = healthcard_balance; }

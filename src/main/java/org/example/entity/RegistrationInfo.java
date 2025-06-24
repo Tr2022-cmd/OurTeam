@@ -3,8 +3,10 @@ package org.example.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.Date;
+@Data
 @TableName("registration_info")
 @Schema(description = "挂号信息实体")
 public class RegistrationInfo {
