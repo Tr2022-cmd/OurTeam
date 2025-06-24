@@ -1,6 +1,6 @@
 package org.example.service.impl;
 
-import org.example.entity.Login_info;
+import org.example.entity.LoginInfo;
 import org.example.mapper.LoginInfoMapper;
 import org.example.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class LoginServiceImpl implements LoginService {
     private LoginInfoMapper loginInfoMapper;
 
     @Override
-    public Login_info login(int id, String password) {
+    public LoginInfo login(int id, String password) {
         return loginInfoMapper.checkLogin(id, password);
     }
 
@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     public boolean changePassword(int id, String oldPassword, String newPassword) {
         // 验证旧密码是否正确
-        Login_info user = loginInfoMapper.checkLogin(id, oldPassword);
+        LoginInfo user = loginInfoMapper.checkLogin(id, oldPassword);
         if (user == null) {
             return false;
         }

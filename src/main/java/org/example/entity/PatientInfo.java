@@ -11,7 +11,7 @@ import java.util.Date;
 
 @TableName("patient_info")
 @Schema(description = "患者信息实体")
-public class Patient_info {
+public class PatientInfo {
     // ==================== 枚举定义 ====================
     public enum Gender { 男, 女 }
     public enum IdentificationType { 居民身份证, 护照, 驾驶证,港澳通行证,台湾通行证,军官证, 其他 }

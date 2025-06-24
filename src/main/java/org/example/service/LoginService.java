@@ -1,10 +1,10 @@
 package org.example.service;
 
-import org.example.entity.Login_info;
+import org.example.entity.LoginInfo;
 
 public interface LoginService {
     // 登录验证
-    Login_info login(int id, String password);
+    LoginInfo login(int id, String password);
 
     // 修改密码
     boolean changePassword(int id, String oldPassword, String newPassword);

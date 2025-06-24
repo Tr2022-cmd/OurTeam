@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.entity.Login_info;
+import org.example.entity.LoginInfo;
 import org.example.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class LoginController {
             @RequestParam int id,
             @RequestParam String password) {
 
-        Login_info user = loginService.login(id, password);
+        LoginInfo user = loginService.login(id, password);
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

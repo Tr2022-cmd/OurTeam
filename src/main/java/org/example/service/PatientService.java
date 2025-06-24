@@ -1,12 +1,12 @@
 package org.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.example.entity.Patient_info;
+import org.example.entity.PatientInfo;
 
 import java.util.List;
 
-public interface PatientService extends IService<Patient_info> {
+public interface PatientService extends IService<PatientInfo> {
 
-    List<Patient_info> queryPatients(Integer healthcardId, String identificationId, String name);
-    boolean updateByHealthcardId(Integer healthcardId, Patient_info patientInfo);
+    List<PatientInfo> queryPatients(Integer healthcardId, String identificationId, String name);
+    boolean updateByHealthcardId(Integer healthcardId, PatientInfo patientInfo);
 }

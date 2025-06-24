@@ -1,6 +1,6 @@
 package org.example.service.impl;
 
-import org.example.entity.Doctor_info;
+import org.example.entity.DoctorInfo;
 import org.example.mapper.DoctorMapper;
 import org.example.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorMapper doctorMapper;
 
     @Override
-    public Doctor_info getDoctorById(Integer docId) {
+    public DoctorInfo getDoctorById(Integer docId) {
         return doctorMapper.selectById(docId);
     }
 }

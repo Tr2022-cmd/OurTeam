@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.entity.Doctor_info;
+import org.example.entity.DoctorInfo;
 import org.example.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class DoctorController {
     @GetMapping("/{docId}")
     public ResponseEntity<?> getDoctorById(@PathVariable Integer docId) {
         try {
-            Doctor_info doctor = doctorService.getDoctorById(docId);
+            DoctorInfo doctor = doctorService.getDoctorById(docId);
             if (doctor == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("未找到ID为 " + docId + " 的医生");

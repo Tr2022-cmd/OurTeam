@@ -1,7 +1,6 @@
 package org.example.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.entity.Patient_info;
+import org.example.entity.PatientInfo;
 import org.example.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class PatientController {
      * @return 保存成功返回true，失败返回false
      */
     @PostMapping("/register")
-    public boolean registerPatient(@RequestBody Patient_info patientInfo) {
+    public boolean registerPatient(@RequestBody PatientInfo patientInfo) {
         return patientService.save(patientInfo);
     }
     @DeleteMapping("/delete/{healthcardId}")
@@ -31,7 +30,7 @@ public class PatientController {
     }
 
     @GetMapping("/query")
-    public List<Patient_info> queryPatients(
+    public List<PatientInfo> queryPatients(
             @RequestParam(required = false) Integer healthcardId,
             @RequestParam(required = false) String identificationId,
             @RequestParam(required = false) String name) {
@@ -45,7 +44,7 @@ public class PatientController {
     @PutMapping("/updateByHealthcard/{healthcardId}")
     public boolean updateByHealthcardId(
             @PathVariable Integer healthcardId,
-            @RequestBody Patient_info patientInfo) {
+            @RequestBody PatientInfo patientInfo) {
         return patientService.updateByHealthcardId(healthcardId, patientInfo);
     }
 }

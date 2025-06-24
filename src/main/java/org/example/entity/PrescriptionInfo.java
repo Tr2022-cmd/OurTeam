@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 @TableName("prescription")
 @Schema(description = "处方信息实体")
-public class Prescription_info {
+public class PrescriptionInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "处方状态枚举")
     public enum PrescriptionState {

@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 @TableName("registration_info")
 @Schema(description = "挂号信息实体")
-public class Registration_info {
+public class RegistrationInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "挂号状态枚举")
     public enum RegistrationState {
