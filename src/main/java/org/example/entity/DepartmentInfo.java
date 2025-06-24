@@ -2,9 +2,12 @@ package org.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
 @TableName("department_info")
 @Schema(description = "部门信息实体")
-public class Department_info {
+public class DepartmentInfo {
     @Schema(description = "部门名称", example = "心血管内科")
     private String department_name;
 

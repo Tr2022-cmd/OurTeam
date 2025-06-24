@@ -2,9 +2,12 @@ package org.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
 @TableName("doctor_info")
 @Schema(description = "医生信息实体")
-public class Doctor_info {
+public class DoctorInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "医生职称等级")
     public enum DoctorRank {

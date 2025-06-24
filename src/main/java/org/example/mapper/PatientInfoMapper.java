@@ -1,8 +1,7 @@
 package org.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.example.entity.Patient_info;
-import org.example.entity.User;
+import org.example.entity.PatientInfo;
 
 /**
  * <p>
@@ -12,6 +11,6 @@ import org.example.entity.User;
  * @author MF
  * @since 2024-08-14
  */
-public interface PatientInfoMapper extends BaseMapper<Patient_info> {
+public interface PatientInfoMapper extends BaseMapper<PatientInfo> {
    // void save(User user);
 }

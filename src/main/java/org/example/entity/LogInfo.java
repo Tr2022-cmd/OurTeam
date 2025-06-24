@@ -3,11 +3,13 @@ package org.example.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.Date;
+@Data
 @TableName("log_info")
 @Schema(description = "系统日志实体")
-public class Log {
+public class LogInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "日志模块枚举")
     public enum Module {

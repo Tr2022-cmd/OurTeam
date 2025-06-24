@@ -1,12 +1,20 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
+@Data
 @TableName("arrange_info")
 @Schema(description = "排班信息实体")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArrangeInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "排班时间段枚举")
@@ -30,84 +38,60 @@ public class ArrangeInfo {
         public String getDisplayValue() {
             return displayValue;
         }
+
+        public static TimeSlot fromDisplayValue(String value) {
+            for (TimeSlot slot : TimeSlot.values()) {
+                if (slot.getDisplayValue().equals(value)) {
+                    return slot;
+                }
+            }
+            throw new IllegalArgumentException("No enum constant for value: " + value);
+        }
+
+        // 添加这个方法用于MyBatis从数据库值映射到枚举
+        public static TimeSlot fromDbValue(String dbValue) {
+            if (dbValue == null) {
+                return null;
+            }
+            return fromDisplayValue(dbValue);
+        }
     }
 
     // ==================== 字段声明 ====================
     @Schema(description = "排班ID", example = "1")
-    private int arrange_id;
+    @TableField("arrange_id")
+    private int arrangeid;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @Schema(description = "排班日期", example = "2023-10-01")
-    private Date arrange_date;  // 修改为Date类型
+    @TableField("arrange_date")
+    private Date arrangedate;
 
     @Schema(description = "排班时间段",
             allowableValues = {"8:00-9:00", "9:00-10:00", "10:00-11:00",
                     "11:00-12:00", "13:00-14:00", "14:00-15:00",
                     "15:00-16:00", "16:00-17:00", "17:00-18:00"})
-    private TimeSlot arrange_timezone;  // 修改为枚举类型
+    @TableField(value = "arrange_timezone", typeHandler = com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler.class)
+    private TimeSlot arrangetimezone;
 
     @Schema(description = "号余量", example = "10")
-    private int arrange_balance;
+    @TableField("arrange_balance")
+    private int arrangebalance;
 
     @Schema(description = "医生ID", example = "1001")
-    private int arrange_doc_id;
-
-    // ==================== Getter/Setter ====================
-    public int getArrange_id() {
-        return arrange_id;
-    }
-
-    public void setArrange_id(int arrange_id) {
-        this.arrange_id = arrange_id;
-    }
-
-    public Date getArrange_date() {
-        return arrange_date;
-    }
-
-    public void setArrange_date(Date arrange_date) {
-        this.arrange_date = arrange_date;
-    }
-
-    public TimeSlot getArrange_timezone() {
-        return arrange_timezone;
-    }
-
-    public void setArrange_timezone(TimeSlot arrange_timezone) {
-        this.arrange_timezone = arrange_timezone;
-    }
+    @TableField("arrange_doc_id")
+    private int arrangedocid;
 
     // 添加支持String输入的setter方法
-    public void setArrange_timezone(String timezone) {
+    public void setArrangetimezone(String timezone) {
         if (timezone == null || timezone.trim().isEmpty()) {
-            this.arrange_timezone = null;
+            this.arrangetimezone = null;
         } else {
             try {
-                this.arrange_timezone = TimeSlot.valueOf("SLOT_" + timezone.replace(":", "").replace("-", "_"));
+                this.arrangetimezone = TimeSlot.fromDisplayValue(timezone);
             } catch (IllegalArgumentException e) {
-                this.arrange_timezone = null; // 或抛出自定义异常
+                this.arrangetimezone = null;
             }
         }
-    }
-
-    public int getArrange_balance() {
-        return arrange_balance;
-    }
-
-    public void setArrange_balance(int arrange_balance) {
-        this.arrange_balance = arrange_balance;
-    }
-
-    public int getArrange_doc_id() {
-        return arrange_doc_id;
-    }
-
-    public void setArrange_doc_id(int arrange_doc_id) {
-        this.arrange_doc_id = arrange_doc_id;
-    }
-
-    // ==================== 工具方法 ====================
-    public String getTimeSlotDisplay() {
-        return arrange_timezone != null ? arrange_timezone.getDisplayValue() : null;
     }
 }

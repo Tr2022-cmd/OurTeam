@@ -2,9 +2,12 @@ package org.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
 @TableName("login_info")
 @Schema(description = "登录信息实体")
-public class Login_info {
+public class LoginInfo {
     // ==================== 枚举定义 ====================
     @Schema(description = "用户权限等级")
     public enum UserRank {

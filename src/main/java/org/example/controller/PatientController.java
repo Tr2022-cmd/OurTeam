@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.entity.Patient_info;
+import org.example.entity.PatientInfo;
 import org.example.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class PatientController {
      * @return 保存成功返回true，失败返回false
      */
     @PostMapping("/register")
-    public boolean registerPatient(@RequestBody Patient_info patientInfo) {
+    public boolean registerPatient(@RequestBody PatientInfo patientInfo) {
         return patientService.save(patientInfo);
     }
 }
