@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 @TableName("doctor_info")
@@ -17,6 +18,7 @@ public class Doctor_info {
     }
 
     // ==================== 字段声明 ====================
+    @TableId("doc_id")
     @Schema(description = "医生ID", example = "1001")
     private int doc_id;  // 改为int类型
 

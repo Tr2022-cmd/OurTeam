@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 @TableName("log_info")
 @Schema(description = "系统日志实体")
-public class Log {
+public class Log_info {
     // ==================== 枚举定义 ====================
     @Schema(description = "日志模块枚举")
     public enum Module {

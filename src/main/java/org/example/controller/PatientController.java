@@ -1,12 +1,13 @@
 package org.example.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entity.Patient_info;
 import org.example.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/patient")
@@ -23,5 +24,28 @@ public class PatientController {
     @PostMapping("/register")
     public boolean registerPatient(@RequestBody Patient_info patientInfo) {
         return patientService.save(patientInfo);
+    }
+    @DeleteMapping("/delete/{healthcardId}")
+    public boolean deletePatient(@PathVariable int healthcardId) {
+        return patientService.removeById(healthcardId);
+    }
+
+    @GetMapping("/query")
+    public List<Patient_info> queryPatients(
+            @RequestParam(required = false) Integer healthcardId,
+            @RequestParam(required = false) String identificationId,
+            @RequestParam(required = false) String name) {
+
+        if (healthcardId == null && identificationId == null && name == null) {
+            throw new IllegalArgumentException("至少需要提供一个查询参数（就诊卡号、证件号或姓名）");
+        }
+
+        return patientService.queryPatients(healthcardId, identificationId, name);
+    }
+    @PutMapping("/updateByHealthcard/{healthcardId}")
+    public boolean updateByHealthcardId(
+            @PathVariable Integer healthcardId,
+            @RequestBody Patient_info patientInfo) {
+        return patientService.updateByHealthcardId(healthcardId, patientInfo);
     }
 }
