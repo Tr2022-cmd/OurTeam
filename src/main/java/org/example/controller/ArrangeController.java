@@ -4,11 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.Result;
 import org.example.entity.ArrangeInfo;
 import org.example.service.ArrangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,10 +38,11 @@ public class ArrangeController {
 
     @GetMapping("/querybyId/{id}")
     @Operation(summary = "获取排班信息", description = "根据ID获取排班信息")
-    public ArrangeInfo getArrangeInfoById(
+    public Result getArrangeInfoById(
             @Parameter(description = "排班ID", required = true)
             @PathVariable int id) {
-        return arrangeService.getArrangeById(id);
+        Result result = new Result("200","success",arrangeService.getArrangeById(id));
+        return result.success(result.getData());
     }
 
     @PutMapping("/updatebyId/{id}")
@@ -62,64 +65,69 @@ public class ArrangeController {
 
     @GetMapping("/listall")
     @Operation(summary = "获取所有排班信息", description = "获取所有排班信息列表")
-    public List<ArrangeInfo> getAllArrangeInfos() {
-        List<ArrangeInfo> list =  arrangeService.list();
-        log.info("{}",list);
-        return list;
+    public Result getAllArrangeInfos() {
+        Result result = new Result("200","success",arrangeService.list());
+        return result.success(result.getData());
     }
 
     // ==================== 业务查询接口 ====================
 
     @GetMapping("/QueryByDoctor/{doctorId}")
     @Operation(summary = "根据医生ID查询排班", description = "获取指定医生的所有排班信息")
-    public List<ArrangeInfo> getArrangeInfosByDoctorId(
+    public Result getArrangeInfosByDoctorId(
             @Parameter(description = "医生ID", required = true)
             @PathVariable int doctorId) {
-        return arrangeService.getArrangeInfosByDocId(doctorId);
+        Result result = new Result("200","success",arrangeService.getArrangeInfosByDocId(doctorId));
+        return result.success(result.getData());
     }
 
     @GetMapping("/QueryByDate")
     @Operation(summary = "根据日期查询排班", description = "获取指定日期的所有排班信息")
-    public List<ArrangeInfo> getArrangeInfosByDate(
+    public Result getArrangeInfosByDate(
             @Parameter(description = "排班日期，格式yyyy-MM-dd", required = true)
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        return arrangeService.getArrangeInfosByDate(date);
+        Result result = new Result("200","success",arrangeService.getArrangeInfosByDate(date));
+        return result.success(result.getData());
     }
 
     @GetMapping("/QueryBydaterange")
     @Operation(summary = "根据日期范围查询排班", description = "获取指定日期范围内的所有排班信息")
-    public List<ArrangeInfo> getArrangeInfosByDateRange(
+    public Result getArrangeInfosByDateRange(
             @Parameter(description = "开始日期，格式yyyy-MM-dd", required = true)
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
             @Parameter(description = "结束日期，格式yyyy-MM-dd", required = true)
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-       return arrangeService.getArrangeInfosByDateRange(startDate, endDate);
+        Result result = new Result("200","success",arrangeService.getArrangeInfosByDateRange(startDate, endDate));
+        return result.success(result.getData());
     }
 
     @GetMapping("/Queryavailableslots")
     @Operation(summary = "查询可用排班时段", description = "根据日期和医生ID查询可用排班时段")
-    public List<ArrangeInfo.TimeSlot> getAvailableTimeSlots(
+    public Result getAvailableTimeSlots(
             @Parameter(description = "排班日期，格式yyyy-MM-dd", required = true)
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             @Parameter(description = "医生ID", required = true)
             @RequestParam int doctorId) {
-        return arrangeService.getAvailableSlotsAsEnum(doctorId,date);
+        Result result = new Result("200","success",arrangeService.getAvailableSlotsAsEnum(doctorId,date));
+        return result.success(result.getData());
     }
 
     @GetMapping("/QueryBydoctoranddate")
     @Operation(summary = "根据医生和日期查询排班", description = "获取指定医生在指定日期的排班信息")
-    public List<ArrangeInfo> getArrangeInfosByDoctorAndDate(
+    public Result getArrangeInfosByDoctorAndDate(
             @Parameter(description = "医生ID", required = true)
             @RequestParam int doctorId,
             @Parameter(description = "排班日期，格式yyyy-MM-dd", required = true)
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        return arrangeService.getArrangeInfosByDoctorAndDate(doctorId, date);
+        Result result = new Result("200","success",arrangeService.getArrangeInfosByDoctorAndDate(doctorId, date));
+        return result.success(result.getData());
     }
 
     @GetMapping("/Queryremaining")
     @Operation(summary = "查询有余量的排班", description = "获取有余量(可预约)的排班信息")
-    public List<ArrangeInfo> getArrangeInfosWithRemaining() {
-        return arrangeService.getArrangeInfosWithRemaining();
+    public Result getArrangeInfosWithRemaining() {
+        Result result = new Result("200","success",arrangeService.getArrangeInfosWithRemaining());
+        return result.success(result.getData());
     }
 
     // ==================== 业务操作接口 ====================
@@ -164,17 +172,19 @@ public class ArrangeController {
 
     @GetMapping("/countbydoctor/{doctorId}")
     @Operation(summary = "统计医生排班数量", description = "统计指定医生的排班数量")
-    public long countArrangeInfosByDoctorId(
+    public Result countArrangeInfosByDoctorId(
             @Parameter(description = "医生ID", required = true)
             @PathVariable int doctorId) {
-        return arrangeService.countArrangeInfosByDoctorId(doctorId);
+        Result result = new Result("200","success",arrangeService.countArrangeInfosByDoctorId(doctorId));
+        return result.success(result.getData());
     }
 
     @GetMapping("/countremainingBydoctor/{doctorId}")
     @Operation(summary = "统计医生有余量的排班数量", description = "统计指定医生有余量的排班数量")
-    public long countRemainingArrangeInfosByDoctorId(
+    public Result countRemainingArrangeInfosByDoctorId(
             @Parameter(description = "医生ID", required = true)
             @PathVariable int doctorId) {
-        return arrangeService.countRemainingArrangeInfosByDoctorId(doctorId);
+        Result result = new Result("200","success",arrangeService.countRemainingArrangeInfosByDoctorId(doctorId));
+        return result.success(result.getData());
     }
 }
